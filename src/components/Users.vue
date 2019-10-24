@@ -1,6 +1,26 @@
 <template>
   <div class="users">
-    这是users组件
+    <el-table :data="userList">
+      <el-table-column label="姓名" prop="username"  width="180"></el-table-column>
+      <el-table-column label="邮箱" prop="email" width="180"></el-table-column>
+      <el-table-column label="电话" prop="mobile" width="180"></el-table-column>
+      <el-table-column label="用户状态">
+        <template v-slot:default="obj">
+          <!-- {{ obj.row }} -->
+          <!-- {{ obj.row.mg_state }} -->
+          <el-switch
+          v-model="obj.row.mg_state"
+          active-color="#13ce66"
+          inactive-color="#ff4949">
+        </el-switch>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作">
+        <el-button type="primary" plain size="small" icon="el-icon-edit"></el-button>
+        <el-button type="danger" plain size="small" icon="el-icon-delete"></el-button>
+        <el-button type="success" plain size="small" icon="el-icon-check">分配角色</el-button>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -29,7 +49,13 @@ export default {
         },
         headers: { Authorization: token }
       }).then(res => {
-        console.log(res.data)
+        const { meta, data } = res.data
+        if (meta.status === 200) {
+          this.userList = data.users
+          console.log(this.userList)
+        } else {
+          this.$message.error(meta.msg)
+        }
       })
     }
   }
