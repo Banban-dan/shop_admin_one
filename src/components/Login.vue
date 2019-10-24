@@ -3,10 +3,10 @@
     <el-form :model="form" label-width="80px" :rules="rules" status-icon ref="form">
       <img src="../assets/login.jpg" alt class="img" />
       <el-form-item label="用户名" prop="username">
-        <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
+        <el-input v-model="form.username" placeholder="请输入用户名" @keyup.enter.native="login"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="form.password" placeholder="请输入密码" type="password"></el-input>
+        <el-input v-model="form.password" placeholder="请输入密码" type="password" @keyup.enter.native="login"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" class="loginBtn" @click="login">登录</el-button>
@@ -77,7 +77,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .login {
   background-color: #2d434c;
   height: 100%;
