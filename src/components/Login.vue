@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data () {
     return {
@@ -41,37 +40,41 @@ export default {
     reset () {
       this.$refs.form.resetFields()
     },
-    login () {
-      this.$refs.form.validate(isvalid => {
-        if (!isvalid) return
-        // axios({
-        //   method: 'post',
-        //   url: 'http://localhost:8888/api/private/v1/login',
-        //   data: this.form
-        // }).then(res => {
-        //   console.log(res.data)
-        //   if (res.data.meta.status === 200) {
-        //     console.log(res.data.meta.msg)
-        //   } else {
-        //     console.log(res.data.meta.msg)
-        //   }
-        // })
-        axios.post('http://localhost:8888/api/private/v1/login', this.form).then(res => {
-          const { meta, data } = res.data
-          // console.log(data)
-          if (meta.status === 200) {
-            localStorage.setItem('token', data.token)
-            this.$message({
-              message: '恭喜你，登录成功',
-              type: 'success'
-            })
-            this.$router.push('index')
-          } else {
-            this.$message.error(meta.msg)
-          }
-        })
+    async login () {
+      try {
+        await this.$refs.form.validate()
+        const { meta, data } = await this.$axios.post('login', this.form)
+        if (meta.status === 200) {
+          localStorage.setItem('token', data.token)
+          this.$message({
+            message: '恭喜你，登录成功',
+            type: 'success'
+          })
+          this.$router.push('index')
+        } else {
+          this.$message.error(meta.msg)
+        }
+      } catch (e) {
+        console.log(e)
       }
-      )
+    //   this.$refs.form.validate(isvalid => {
+    //     if (!isvalid) return
+    //     this.$axios.post('login', this.form).then(res => {
+    //       const { meta, data } = res
+    //       // console.log(data)
+      // if (meta.status === 200) {
+      //   localStorage.setItem('token', data.token)
+      //   this.$message({
+      //     message: '恭喜你，登录成功',
+      //     type: 'success'
+      //   })
+      //   this.$router.push('index')
+      // } else {
+      //   this.$message.error(meta.msg)
+      // }
+    //     })
+    //   }
+      // )
     }
   }
 }
