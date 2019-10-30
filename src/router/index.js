@@ -8,6 +8,7 @@ import Rights from '../components/rights/Rights.vue'
 import Goods from '../components/product/Goods.vue'
 import Categories from '../components/product/Categories.vue'
 import Params from '../components/product/Params.vue'
+import GoodsAdd from '../components/product/GoodsAdd.vue'
 
 Vue.use(VueRouter)
 const originalPush = VueRouter.prototype.push
@@ -25,7 +26,8 @@ const routes = [
       { path: '/rights', component: Rights },
       { path: '/goods', component: Goods },
       { path: '/params', component: Params },
-      { path: '/categories', component: Categories }
+      { path: '/categories', component: Categories },
+      { path: '/goods-add', component: GoodsAdd }
     ]
   },
   { path: '/login', component: Login }

@@ -3,8 +3,15 @@ import App from './App.vue'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-// 优化axios
+import moment from 'moment'
 import axios from 'axios'
+
+// 处理时间过滤器
+Vue.filter('time', function (value) {
+  return moment(value * 1000).format('YYYY-MM-DD HH:mm:ss')
+})
+
+// 优化axios
 Vue.prototype.$axios = axios
 // 配置baseURL基准地址
 axios.defaults.baseURL = 'http://localhost:8888/api/private/v1/'
