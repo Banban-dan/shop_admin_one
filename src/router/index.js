@@ -1,14 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../components/Login.vue'
-import Index from '../components/Index.vue'
-import Users from '../components/users/Users.vue'
-import Roles from '../components/rights/Roles.vue'
-import Rights from '../components/rights/Rights.vue'
-import Goods from '../components/product/Goods.vue'
-import Categories from '../components/product/Categories.vue'
-import Params from '../components/product/Params.vue'
-import GoodsAdd from '../components/product/GoodsAdd.vue'
 
 // 使用插件富文本编辑器
 import VueQuillEditor from 'vue-quill-editor'
@@ -17,6 +8,20 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+
+// 分模块打包
+const Login = () => import(/* webpackChunkName: 'index' */'../components/Login.vue')
+const Index = () => import(/* webpackChunkName: 'index' */'../components/Index.vue')
+
+const Users = () => import(/* webpackChunkName: users' */'../components/users/Users.vue')
+
+const Roles = () => import(/* webpackChunkName: rights' */'../components/rights/Roles.vue')
+const Rights = () => import(/* webpackChunkName: rights' */'../components/rights/Rights.vue')
+
+const Goods = () => import(/* webpackChunkName: products' */'../components/product/Goods.vue')
+const Categories = () => import(/* webpackChunkName: products' */'../components/product/Categories.vue')
+const Params = () => import(/* webpackChunkName: products' */'../components/product/Params.vue')
+const GoodsAdd = () => import(/* webpackChunkName: products' */'../components/product/GoodsAdd.vue')
 
 Vue.use(VueQuillEditor /* { default global options } */)
 
